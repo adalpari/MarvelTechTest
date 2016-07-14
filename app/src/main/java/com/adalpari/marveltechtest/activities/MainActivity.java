@@ -3,17 +3,17 @@ package com.adalpari.marveltechtest.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.adalpari.marveltechtest.R;
 import com.adalpari.marveltechtest.interfaces.ClickInterface;
@@ -22,10 +22,6 @@ import com.adalpari.marveltechtest.listadapters.ComicAdapter;
 import com.adalpari.marveltechtest.listadapters.RowDivider;
 import com.adalpari.marveltechtest.model.Comic;
 import com.adalpari.marveltechtest.utils.Downloader;
-import com.karumi.marvelapiclient.model.ComicDto;
-import com.karumi.marvelapiclient.model.ComicsDto;
-import com.karumi.marvelapiclient.model.MarvelImage;
-import com.karumi.marvelapiclient.model.MarvelResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ComicsDownloadInt
     // views
     private RecyclerView recyclerView;
     private ProgressBar spinner;
+    private CoordinatorLayout coordinatorLayout;
 
     //comics
     private List<Comic> comicList;
@@ -53,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements ComicsDownloadInt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
+                .coordinatorLayout);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -120,24 +120,10 @@ public class MainActivity extends AppCompatActivity implements ComicsDownloadInt
     }
 
     @Override
-    public void onComicsDownloaded(MarvelResponse<ComicsDto> response) {
-        if (response != null && response.getCode() == 200){
+    public void onComicsDownloaded(List<Comic> comics) {
 
-            // add all the relevant info from downlaoded commics
-            for (ComicDto comic : response.getResponse().getComics()){
-                Comic insComic = new Comic(comic.getTitle(), comic.getDescription(), comic.getThumbnail().getImageUrl(MarvelImage.Size.LANDSCAPE_INCREDIBLE));
-                for (MarvelImage img : comic.getImages()){
-                    insComic.addImageURL(img.getImageUrl(MarvelImage.Size.FULLSIZE));
-                }
-                comicList.add(insComic);
-            }
-
-            mAdapter.notifyDataSetChanged();
-        } else {
-            Toast error = Toast.makeText(getBaseContext(), getResources().getString(R.string.fetch_ko), Toast.LENGTH_LONG);
-            error.setGravity(Gravity.CENTER, 0, 0);
-            error.show();
-        }
+        comicList.addAll(comics);
+        mAdapter.notifyDataSetChanged();
 
         loading = false;
         spinner.setVisibility(View.GONE);
@@ -147,9 +133,29 @@ public class MainActivity extends AppCompatActivity implements ComicsDownloadInt
     public void onDownloadError() {
         spinner.setVisibility(View.GONE);
         loading = false;
-        Toast error = Toast.makeText(getBaseContext(), getResources().getString(R.string.fetch_error), Toast.LENGTH_LONG);
-        error.setGravity(Gravity.CENTER, 0, 0);
-        error.show();
+        showSnackBar(getResources().getString(R.string.fetch_error), true);
+    }
+
+    @Override
+    public void onResponseError() {
+        spinner.setVisibility(View.GONE);
+        loading = false;
+        showSnackBar(getResources().getString(R.string.fetch_ko), false);
+    }
+
+    private void showSnackBar(String text, boolean retryFetch){
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, text, Snackbar.LENGTH_LONG);
+
+        if (retryFetch){
+            snackbar.setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fetchComicData();
+                }
+            });
+        }
+
+        snackbar.show();
     }
 
 

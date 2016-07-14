@@ -3,4 +3,5 @@
 
     <string name="fetch_error">Ups, there was an error</string>
     <string name="fetch_ko">I\'m affraid there\'s no more comics</string>
+    <string name="retry">RETRY</string>
 </resources>

@@ -3,12 +3,18 @@ package com.adalpari.marveltechtest.utils;
 import android.os.AsyncTask;
 
 import com.adalpari.marveltechtest.interfaces.ComicsDownloadInterface;
+import com.adalpari.marveltechtest.model.Comic;
 import com.karumi.marvelapiclient.ComicApiClient;
 import com.karumi.marvelapiclient.MarvelApiConfig;
 import com.karumi.marvelapiclient.MarvelApiException;
+import com.karumi.marvelapiclient.model.ComicDto;
 import com.karumi.marvelapiclient.model.ComicsDto;
 import com.karumi.marvelapiclient.model.ComicsQuery;
+import com.karumi.marvelapiclient.model.MarvelImage;
 import com.karumi.marvelapiclient.model.MarvelResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by plaza.a on 13/07/2016.
@@ -72,7 +78,23 @@ public class Downloader {
 
         protected void onPostExecute(MarvelResponse<ComicsDto> result) {
             if ( result != null){
-                mListener.onComicsDownloaded(result);
+                if (result.getCode() == 200){
+                    List<Comic> comicList = new ArrayList<Comic>();
+
+                    // add all the relevant info from downlaoded commics
+                    for (ComicDto comic : result.getResponse().getComics()){
+                        Comic insComic = new Comic(comic.getTitle(), comic.getDescription(), comic.getThumbnail().getImageUrl(MarvelImage.Size.LANDSCAPE_INCREDIBLE));
+                        for (MarvelImage img : comic.getImages()){
+                            insComic.addImageURL(img.getImageUrl(MarvelImage.Size.FULLSIZE));
+                        }
+                        comicList.add(insComic);
+                    }
+                    mListener.onComicsDownloaded(comicList);
+
+                } else {
+                    mListener.onResponseError();
+                }
+
             } else {
                 mListener.onDownloadError();
             }
