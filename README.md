@@ -1,4 +1,4 @@
-# MarvelTechTest
+# MVP JSON API
 
 Technical Android Test that fech comics about Captain America from Marvel API.
 
