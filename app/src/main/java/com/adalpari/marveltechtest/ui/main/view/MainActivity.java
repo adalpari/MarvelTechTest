@@ -26,15 +26,19 @@ import com.adalpari.marveltechtest.ui.main.view.listadapters.RowDivider;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by plaza.a on 13/07/2016.
  */
 public class MainActivity extends AppCompatActivity implements IMainView {
 
     // views
-    private RecyclerView recyclerView;
-    private ProgressBar spinner;
-    private CoordinatorLayout coordinatorLayout;
+    RecyclerView recyclerView;
+    @BindView(R.id.progressBar) ProgressBar spinner;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+
 
     private ComicAdapter mAdapter;
     private MainActivityPresenter mPresenter;
@@ -50,22 +54,19 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
+
         Navigator mNavigator = new DefaultNavigator();
         mNavigator.setActivity(this);
         mPresenter = new MainActivityPresenter(this, mNavigator);
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
-                .coordinatorLayout);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setIcon(R.mipmap.ic_launcher);
         }
-
-        // find views
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        spinner = (ProgressBar)findViewById(R.id.progressBar);
 
         //prepare list, recyclerview and adapters
         mAdapter = new ComicAdapter(null, this);

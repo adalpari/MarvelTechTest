@@ -14,6 +14,9 @@ import com.adalpari.marveltechtest.ui.comicdetails.presenter.DetailPresenter;
 import com.adalpari.marveltechtest.ui.comicdetails.presenter.IDetailView;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by plaza.a on 13/07/2016.
  */
@@ -23,9 +26,9 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     public final static String COMIC_KEY = "com.adalpari.marveltechtest.COMIC";
 
     // views
-    private ImageView ivPicture;
-    private TextView tvTitle;
-    private TextView tvDescription;
+    @BindView(R.id.ivRandomPicture) ImageView ivPicture;
+    @BindView(R.id.tvTitle) TextView tvTitle;
+    @BindView(R.id.tvDescription) TextView tvDescription;
 
     private DetailPresenter mPresenter;
 
@@ -34,17 +37,14 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        ButterKnife.bind(this);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setIcon(R.mipmap.ic_launcher);
         }
-
-        // get views
-        ivPicture = (ImageView) findViewById(R.id.ivRandomPicture);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvDescription = (TextView) findViewById(R.id.tvDescription);
 
         // get comic to show from intent
         Intent mIntent = getIntent();
