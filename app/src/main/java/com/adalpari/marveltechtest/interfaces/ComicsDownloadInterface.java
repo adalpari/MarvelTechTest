@@ -6,12 +6,13 @@ import java.util.List;
 
 /**
  * Created by plaza.a on 13/07/2016.
- *
+ * <p/>
  * Interface for communication between main thread and Downloader
  */
 public interface ComicsDownloadInterface {
     /**
      * Called when the list of comics have been downlaoded
+     *
      * @param comics
      */
     public void onComicsDownloaded(List<Comic> comics);

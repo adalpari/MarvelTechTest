@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * Created by plaza.a on 13/07/2016.
- *
+ * <p/>
  * Class to represen RELEVANT info about a comic
  */
 public class Comic implements Parcelable {
@@ -50,17 +50,18 @@ public class Comic implements Parcelable {
         this.picture = picture;
     }
 
-    public void addImageURL(String url){
+    public void addImageURL(String url) {
         imagesURL.add(url);
     }
 
     /**
      * Get random url from imagesURLS
+     *
      * @return the String of URL
      */
-    public String getRandomImage(){
+    public String getRandomImage() {
         Random r = new Random();
-                                                        //nextInt(max - min) + min
+        //nextInt(max - min) + min
         int i = r.nextInt(imagesURL.size() - 0);        //integer between 0 (inclusive) and size (exclusive)
 
         return imagesURL.get(i);
@@ -79,7 +80,7 @@ public class Comic implements Parcelable {
         dest.writeList(imagesURL);
     }
 
-    private Comic(Parcel in){
+    private Comic(Parcel in) {
         this.title = in.readString();
         this.description = in.readString();
         this.picture = in.readString();

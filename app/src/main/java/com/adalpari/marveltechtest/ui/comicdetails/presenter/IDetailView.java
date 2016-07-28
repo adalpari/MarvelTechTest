@@ -5,5 +5,6 @@ package com.adalpari.marveltechtest.ui.comicdetails.presenter;
  */
 public interface IDetailView {
     void drawComic(String imageURL, String title, String description);
+
     void refreshImage(String imageURL);
 }

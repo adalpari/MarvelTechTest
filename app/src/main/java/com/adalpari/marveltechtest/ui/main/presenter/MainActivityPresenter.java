@@ -21,11 +21,11 @@ public class MainActivityPresenter implements ComicsDownloadInterface {
         mNavigator = navigator;
     }
 
-    public void onComicClicked(Comic comic){
+    public void onComicClicked(Comic comic) {
         mNavigator.goToDetailView(comic);
     }
 
-    public void fetchComicList(int offset){
+    public void fetchComicList(int offset) {
         mDownloader.fetchComicsList(offset);
     }
 

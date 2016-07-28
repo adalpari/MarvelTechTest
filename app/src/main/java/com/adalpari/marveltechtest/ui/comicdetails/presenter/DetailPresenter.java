@@ -14,11 +14,11 @@ public class DetailPresenter {
         this.comic = comic;
     }
 
-    public void drawComic(){
+    public void drawComic() {
         view.drawComic(comic.getRandomImage(), comic.getTitle(), comic.getDescription());
     }
 
-    public void randomImage(){
+    public void randomImage() {
         view.refreshImage(comic.getRandomImage());
     }
 }

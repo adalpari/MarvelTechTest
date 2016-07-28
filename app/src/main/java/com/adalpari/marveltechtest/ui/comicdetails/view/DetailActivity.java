@@ -26,9 +26,12 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     public final static String COMIC_KEY = "com.adalpari.marveltechtest.COMIC";
 
     // views
-    @BindView(R.id.ivRandomPicture) ImageView ivPicture;
-    @BindView(R.id.tvTitle) TextView tvTitle;
-    @BindView(R.id.tvDescription) TextView tvDescription;
+    @BindView(R.id.ivRandomPicture)
+    ImageView ivPicture;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+    @BindView(R.id.tvDescription)
+    TextView tvDescription;
 
     private DetailPresenter mPresenter;
 
@@ -40,7 +43,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         ButterKnife.bind(this);
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setIcon(R.mipmap.ic_launcher);
@@ -52,7 +55,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         mPresenter = new DetailPresenter(this, comic);
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         mPresenter.drawComic();
     }
@@ -69,7 +72,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     public void refreshImage(String imageURL) {
         Picasso.with(this)
                 .load(imageURL)
-                .placeholder( R.drawable.progress_animation )
+                .placeholder(R.drawable.progress_animation)
                 .error(R.drawable.image_error)
                 .fit()
                 .into(ivPicture);

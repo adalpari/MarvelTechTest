@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by plaza.a on 13/07/2016.
  */
-public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder>  {
+public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
 
     private List<Comic> comicsList;
     private Context mContext;
@@ -34,12 +34,12 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         this.mContext = context;
     }
 
-    public void addComics(List<Comic> comicsList){
+    public void addComics(List<Comic> comicsList) {
         this.comicsList.addAll(comicsList);
         notifyDataSetChanged();
     }
 
-    public Comic getComic(int position){
+    public Comic getComic(int position) {
         return comicsList.get(position);
     }
 
@@ -57,7 +57,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         Comic comic = comicsList.get(position);
         Picasso.with(mContext)
                 .load(comic.getPicture())
-                .placeholder(R.drawable.progress_animation )
+                .placeholder(R.drawable.progress_animation)
                 .error(R.drawable.image_error)
                 .fit()
                 .into(holder.picture);

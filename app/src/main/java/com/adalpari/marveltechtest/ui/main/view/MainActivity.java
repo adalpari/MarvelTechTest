@@ -36,8 +36,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     // views
     RecyclerView recyclerView;
-    @BindView(R.id.progressBar) ProgressBar spinner;
-    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.progressBar)
+    ProgressBar spinner;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
 
 
     private ComicAdapter mAdapter;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setIcon(R.mipmap.ic_launcher);
         }
@@ -76,22 +78,18 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new RowDivider(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if(dy > 0) //check for scroll down
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
                 {
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
                     //check if downloader is already loading
-                    if (!loading)
-                    {
-                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
-                        {
+                    if (!loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             fetchComicData();
                         }
                     }
@@ -141,10 +139,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         showSnackBar(getResources().getString(R.string.fetch_ko), false);
     }
 
-    private void showSnackBar(String text, boolean retryFetch){
+    private void showSnackBar(String text, boolean retryFetch) {
         Snackbar snackbar = Snackbar.make(coordinatorLayout, text, Snackbar.LENGTH_LONG);
 
-        if (retryFetch){
+        if (retryFetch) {
             snackbar.setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -174,7 +172,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 }
 
                 @Override
-                public void onLongPress(MotionEvent e) {}
+                public void onLongPress(MotionEvent e) {
+                }
             });
         }
 

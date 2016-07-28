@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Created by plaza.a on 13/07/2016.
- *
+ * <p/>
  * Helper class for download Comic data from the Marvel API Client
  */
 public class Downloader {
@@ -42,9 +42,10 @@ public class Downloader {
 
     /**
      * fetch comics from API
+     *
      * @param offset from where to start
      */
-    public void fetchComicsList(int offset){
+    public void fetchComicsList(int offset) {
         new DownloadComicsTask().execute(offset);
     }
 
@@ -77,14 +78,14 @@ public class Downloader {
 
 
         protected void onPostExecute(MarvelResponse<ComicsDto> result) {
-            if ( result != null){
-                if (result.getCode() == 200){
+            if (result != null) {
+                if (result.getCode() == 200) {
                     List<Comic> comicList = new ArrayList<Comic>();
 
                     // add all the relevant info from downlaoded commics
-                    for (ComicDto comic : result.getResponse().getComics()){
+                    for (ComicDto comic : result.getResponse().getComics()) {
                         Comic insComic = new Comic(comic.getTitle(), comic.getDescription(), comic.getThumbnail().getImageUrl(MarvelImage.Size.LANDSCAPE_INCREDIBLE));
-                        for (MarvelImage img : comic.getImages()){
+                        for (MarvelImage img : comic.getImages()) {
                             insComic.addImageURL(img.getImageUrl(MarvelImage.Size.FULLSIZE));
                         }
                         comicList.add(insComic);
