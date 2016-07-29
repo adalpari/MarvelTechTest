@@ -60,7 +60,8 @@ public class Downloader implements Callback<APIResponse> {
         String hash = md5(timestamp + PRIVATE_KEY + PUBLIC_KEY);
 
         if (hash != null) {
-            Call<APIResponse> call = marvelAPI.getComics(CAPTAIN_AMERICA_ID, LIMIT, offset, PUBLIC_KEY, timestamp, hash);
+            Call<APIResponse> call = marvelAPI.getComics(CAPTAIN_AMERICA_ID, LIMIT, offset,
+                    PUBLIC_KEY, timestamp, hash);
             call.enqueue(this);
         } else {
             mListener.onDownloadError();
@@ -74,7 +75,8 @@ public class Downloader implements Callback<APIResponse> {
 
         for (Result comicResult : response.body().getData().getResults()) {
             Comic newComic = new Comic(comicResult.getTitle(), comicResult.getDescription(),
-                    comicResult.getThumbnail().getPath() + "/landscape_incredible" + "." + comicResult.getThumbnail().getExtension());
+                    comicResult.getThumbnail().getPath() +
+                            "/landscape_incredible" + "." + comicResult.getThumbnail().getExtension());
 
             for (Image comicImage : comicResult.getImages()) {
                 newComic.addImageURL(comicImage.getPath() + "." + comicImage.getExtension());
