@@ -6,9 +6,11 @@ App shows a list with all the comics. Tapping in every comic show a random image
 
 ## External Libraries
 
-[MarvelApiClientAndroid](https://github.com/Karumi/MarvelApiClientAndroid)
+[ButterKnife](http://jakewharton.github.io/butterknife/)
 
 [Picasso](http://square.github.io/picasso)
+
+[Retrofit](http://square.github.io/retrofit/)
 
 ## Screeshots
 
