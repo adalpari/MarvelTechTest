@@ -8,9 +8,9 @@ import java.util.List;
  * Created by plaza.a on 22/07/2016.
  */
 public interface IMainView {
-    public void onComicsDownloaded(List<Comic> comics);
+    void onComicsDownloaded(List<Comic> comics);
 
-    public void onDownloadError();
+    void onDownloadError();
 
-    public void onResponseError();
+    void onResponseError();
 }

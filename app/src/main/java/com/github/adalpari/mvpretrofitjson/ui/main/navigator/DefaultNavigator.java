@@ -24,8 +24,6 @@ public class DefaultNavigator implements Navigator {
 
     @Override
     public void goToDetailView(Comic comic) {
-        int currentOrientation = getActivity().getResources().getConfiguration().orientation;
-
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(DetailActivity.COMIC_KEY, comic);
         launch(intent);

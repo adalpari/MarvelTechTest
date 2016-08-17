@@ -5,7 +5,6 @@ import com.github.adalpari.mvpretrofitjson.model.APIResponse;
 import com.github.adalpari.mvpretrofitjson.model.Comic;
 import com.github.adalpari.mvpretrofitjson.model.Image;
 import com.github.adalpari.mvpretrofitjson.model.Result;
-import com.karumi.marvelapiclient.MarvelApiConfig;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -32,18 +31,14 @@ public class Downloader implements Callback<APIResponse> {
 
     private final static String BASE_URL = "http://gateway.marvel.com:80";
 
-    private MarvelApiConfig marvelApiConfig;
-
     private ComicsDownloadInterface mListener;
 
-    private Retrofit retrofit;
     private ApiEndPointInterface marvelAPI;
 
     public Downloader(ComicsDownloadInterface listener) {
-        this.marvelApiConfig = new MarvelApiConfig.Builder(PUBLIC_KEY, PRIVATE_KEY).debug().build();
         this.mListener = listener;
 
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -70,13 +65,14 @@ public class Downloader implements Callback<APIResponse> {
 
     @Override
     public void onResponse(Call<APIResponse> call, retrofit2.Response<APIResponse> response) {
-        APIResponse res = response.body();
         List<Comic> comicList = new ArrayList<>();
 
         for (Result comicResult : response.body().getData().getResults()) {
             Comic newComic = new Comic(comicResult.getTitle(), comicResult.getDescription(),
-                    comicResult.getThumbnail().getPath() +
-                            "/landscape_incredible" + "." + comicResult.getThumbnail().getExtension());
+                    comicResult.getThumbnail().getPath()
+                            + "/landscape_incredible"
+                            + "."
+                            + comicResult.getThumbnail().getExtension());
 
             for (Image comicImage : comicResult.getImages()) {
                 newComic.addImageURL(comicImage.getPath() + "." + comicImage.getExtension());
@@ -107,8 +103,9 @@ public class Downloader implements Callback<APIResponse> {
             StringBuffer hexString = new StringBuffer();
             for (int i = 0; i < messageDigest.length; i++) {
                 String h = Integer.toHexString(0xFF & messageDigest[i]);
-                while (h.length() < 2)
+                while (h.length() < 2) {
                     h = "0" + h;
+                }
                 hexString.append(h);
             }
             output = hexString.toString();

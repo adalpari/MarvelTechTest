@@ -15,15 +15,15 @@ public interface ComicsDownloadInterface {
      *
      * @param comics
      */
-    public void onComicsDownloaded(List<Comic> comics);
+    void onComicsDownloaded(List<Comic> comics);
 
     /**
      * Called when there is any error in server communication
      */
-    public void onDownloadError();
+    void onDownloadError();
 
     /**
      * Called when there is any error in response
      */
-    public void onResponseError();
+    void onResponseError();
 }

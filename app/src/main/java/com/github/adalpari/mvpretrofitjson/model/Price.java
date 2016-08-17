@@ -5,47 +5,39 @@ import com.google.gson.annotations.SerializedName;
 
 public class Price {
 
-@SerializedName("type")
-@Expose
-private String type;
-@SerializedName("price")
-@Expose
-private String price;
+    @SerializedName("type")
+    @Expose
+    private String type;
+    @SerializedName("price")
+    @Expose
+    private String price;
 
-/**
-* 
-* @return
-* The type
-*/
-public String getType() {
-return type;
-}
+    /**
+     * @return The type
+     */
+    public String getType() {
+        return type;
+    }
 
-/**
-* 
-* @param type
-* The type
-*/
-public void setType(String type) {
-this.type = type;
-}
+    /**
+     * @param type The type
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
 
-/**
-* 
-* @return
-* The price
-*/
-public String getPrice() {
-return price;
-}
+    /**
+     * @return The price
+     */
+    public String getPrice() {
+        return price;
+    }
 
-/**
-* 
-* @param price
-* The price
-*/
-public void setPrice(String price) {
-this.price = price;
-}
+    /**
+     * @param price The price
+     */
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
 }

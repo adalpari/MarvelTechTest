@@ -81,23 +81,22 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) //check for scroll down
-                {
+                if (dy > 0) { //check for scroll down
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
-                    //check if downloader is already loading
-                    if (!loading) {
-                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            fetchComicData();
-                        }
+                //check if downloader is already loading
+                if (!loading
+                    && (visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                        fetchComicData();
                     }
                 }
             }
         });
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickInterface() {
+        recyclerView.addOnItemTouchListener(
+                new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickInterface() {
             @Override
             public void onItemClicked(View view, int position) {
                 mPresenter.onComicClicked(mAdapter.getComic(position));
@@ -162,7 +161,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         private GestureDetector gestureDetector;
         private ClickInterface clickListener;
 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickInterface clickListener) {
+        public RecyclerTouchListener(Context context,
+                                     final RecyclerView recyclerView,
+                                     final ClickInterface clickListener) {
             this.clickListener = clickListener;
             gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override
