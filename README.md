@@ -1,8 +1,10 @@
-# Testing-MVP-JSON-API
+# WARNING THIS CODE IS OBSOLETE
+This code is only for test purposse and may contain errors.
+Do not follow it for new examples.
 
-Technical Android Test that fech comics about Captain America from Marvel API.
+# Testing JSON-API
 
-App shows a list with all the comics. Tapping in every comic show a random image, title and description.
+Android Test that fech comics about Captain America from Marvel API.
 
 ## External Libraries
 
