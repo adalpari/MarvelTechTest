@@ -15,9 +15,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by plaza.a on 13/07/2016.
- */
 public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
 
     private List<Comic> comicsList;
@@ -53,7 +50,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
     @Override
     public void onBindViewHolder(ComicViewHolder holder, int position) {
-        // set picture fitting inside the screen
         Comic comic = comicsList.get(position);
         Picasso.with(mContext)
                 .load(comic.getPicture())

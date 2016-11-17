@@ -16,11 +16,6 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by plaza.a on 13/07/2016.
- * <p/>
- * Helper class for download Comic data from the Marvel API Client
- */
 public class Downloader implements Callback<APIResponse> {
 
     // data needed by API
@@ -35,9 +30,7 @@ public class Downloader implements Callback<APIResponse> {
 
     private ApiEndPointInterface marvelAPI;
 
-    public Downloader(ComicsDownloadInterface listener) {
-        this.mListener = listener;
-
+    public Downloader() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -45,11 +38,14 @@ public class Downloader implements Callback<APIResponse> {
         marvelAPI = retrofit.create(ApiEndPointInterface.class);
     }
 
-    /**
-     * fetch comics from API
-     *
-     * @param offset from where to start
-     */
+    public void onAttach(ComicsDownloadInterface listener) {
+        this.mListener = listener;
+    }
+
+    public void onDettach() {
+        this.mListener = null;
+    }
+
     public void fetchComicsList(int offset) {
         Long timestamp = System.currentTimeMillis();
         String hash = md5(timestamp + PRIVATE_KEY + PUBLIC_KEY);

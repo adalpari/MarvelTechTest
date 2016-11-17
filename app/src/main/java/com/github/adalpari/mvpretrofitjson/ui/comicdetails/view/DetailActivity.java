@@ -22,10 +22,8 @@ import butterknife.ButterKnife;
  */
 public class DetailActivity extends AppCompatActivity implements IDetailView {
 
-    // key for intent
     public final static String COMIC_KEY = "com.adalpari.marveltechtest.COMIC";
 
-    // views
     @BindView(R.id.ivRandomPicture)
     ImageView ivPicture;
     @BindView(R.id.tvTitle)
@@ -49,7 +47,6 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
             actionBar.setIcon(R.mipmap.ic_launcher);
         }
 
-        // get comic to show from intent
         Intent mIntent = getIntent();
         Comic comic = mIntent.getParcelableExtra(COMIC_KEY);
         mPresenter = new DetailPresenter(this, comic);
@@ -63,7 +60,6 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     @Override
     public void drawComic(String imageURL, String title, String description) {
         refreshImage(imageURL);
-        // set info. Prevent HTML in description
         tvTitle.setText(title);
         tvDescription.setText(Html.fromHtml(description));
     }

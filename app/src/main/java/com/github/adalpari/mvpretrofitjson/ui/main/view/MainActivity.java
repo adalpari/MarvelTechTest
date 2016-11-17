@@ -23,18 +23,15 @@ import com.github.adalpari.mvpretrofitjson.ui.main.presenter.IMainView;
 import com.github.adalpari.mvpretrofitjson.ui.main.presenter.MainActivityPresenter;
 import com.github.adalpari.mvpretrofitjson.ui.main.view.listadapters.ComicAdapter;
 import com.github.adalpari.mvpretrofitjson.ui.main.view.listadapters.RowDivider;
+import com.github.adalpari.mvpretrofitjson.utils.Downloader;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by plaza.a on 13/07/2016.
- */
 public class MainActivity extends AppCompatActivity implements IMainView {
 
-    // views
     RecyclerView recyclerView;
     @BindView(R.id.progressBar)
     ProgressBar spinner;
@@ -45,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     private ComicAdapter mAdapter;
     private MainActivityPresenter mPresenter;
 
-    // variables for handle "scroll to bottom" action and offset of list
     private boolean loading = false;
     private int pastVisiblesItems;
     private int visibleItemCount;
@@ -60,7 +56,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
         Navigator mNavigator = new DefaultNavigator();
         mNavigator.setActivity(this);
-        mPresenter = new MainActivityPresenter(this, mNavigator);
+        Downloader mDownloader = new Downloader();
+        mPresenter = new MainActivityPresenter(this, mNavigator, mDownloader);
+        mPresenter.onAttach();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -70,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             actionBar.setIcon(R.mipmap.ic_launcher);
         }
 
-        //prepare list, recyclerview and adapters
         mAdapter = new ComicAdapter(null, this);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -106,9 +103,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         fetchComicData();
     }
 
-    /**
-     * Fech comic data ussing Downloader class
-     */
     private void fetchComicData() {
         spinner.setVisibility(View.VISIBLE);
         loading = true;
@@ -153,9 +147,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     }
 
 
-    /**
-     * Class for handle RecyclerView OnItemClick
-     */
     public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
         private GestureDetector gestureDetector;

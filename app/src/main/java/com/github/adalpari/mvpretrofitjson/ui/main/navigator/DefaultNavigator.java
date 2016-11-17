@@ -6,9 +6,6 @@ import android.content.Intent;
 import com.github.adalpari.mvpretrofitjson.ui.comicdetails.view.DetailActivity;
 import com.github.adalpari.mvpretrofitjson.model.Comic;
 
-/**
- * Created by plaza.a on 22/07/2016.
- */
 public class DefaultNavigator implements Navigator {
 
     protected Activity activity;

@@ -15,10 +15,14 @@ public class MainActivityPresenter implements ComicsDownloadInterface {
     private Navigator mNavigator;
     private Downloader mDownloader;
 
-    public MainActivityPresenter(IMainView view, Navigator navigator) {
+    public MainActivityPresenter(IMainView view, Navigator navigator, Downloader downloader) {
         this.view = view;
-        mDownloader = new Downloader(this);
+        mDownloader = downloader;
         mNavigator = navigator;
+    }
+
+    public void onAttach() {
+        mDownloader.onAttach(this);
     }
 
     public void onComicClicked(Comic comic) {
